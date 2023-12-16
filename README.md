@@ -2,7 +2,7 @@
 This is the *Pytorch Implementation* for the paper Unsupervised Continual Learning of Image Representation via Rememory-Based SimSiam
 
 ## Framework
-![frame.pdf](https://github.com/S2VTouser/Rememory-based-SimSiam/files/13692458/frame.pdf)
+![image]([https://github.com/S2VTouser/Rememory-based-SimSiam/files/13692458/frame.pdf](https://github.com/S2VTouser/Rememory-based-SimSiam/blob/main/img/frame.pdf))
 
 ## Abstract
 Unsupervised continual learning (UCL) of image representation has garnered attention due to practical need. However, recent UCL methods focus on mitigating the catastrophic forgetting with a replay buffer (i.e., rehearsal-based strategy), which needs much extra storage. To overcome this drawback, we propose a novel rememory-based SimSiam (RM-SimSiam) method to reduce the dependency on replay buffer. The core idea of RM-SimSiam is to store and remember the old knowledge with a data-free historical module instead of replay buffer. Specifically, this historical module is designed to store the historical average model of all previous models (the memory process) and then transfer the knowledge of the historical average model to the new model (the rememory process). To further improve the rememory ability of RM-SimSiam, we devise an enhanced SimSiam-based contrastive loss by aligning the representations outputted by the historical and new models. Extensive experiments on three benchmarks demonstrate the effectiveness of our RM-SimSiam.
