@@ -1,4 +1,4 @@
-name: simsiam-c100-experiment-resnet18
+name: barlow-c100-experiment-resnet18
 dataset: 
   name: seq-cifar100
   image_size: 32
