@@ -59,14 +59,11 @@ def evaluate(model: ContinualModel, dataset: ContinualDataset, device, classifie
 def main(device, args):
 
     dataset = get_dataset(args)
-    dataset_copy = get_dataset(args) #所有数据
-    train_loader, memory_loader, test_loader = dataset_copy.get_data_loaders(args) #task0 只有0，1类数据 10000个
-    #moco 初始化
+    dataset_copy = get_dataset(args)
+    train_loader, memory_loader, test_loader = dataset_copy.get_data_loaders(args)
 
     # define model
-    model = get_model(args, device, len(train_loader), dataset.get_transform(args)) #si/der等
-    #里面调用了moco模型，直接进行init,即下面的所有任务进行一次init.->global encoder_k
-    #curr encoder 每个任务都将q赋值给它
+    model = get_model(args, device, len(train_loader), dataset.get_transform(args))
 
     logger = Logger(matplotlib=args.logger.matplotlib, log_dir=args.log_dir)
 
@@ -86,7 +83,7 @@ def main(device, args):
         local_progress=tqdm(train_loader, desc=f'Epoch {epoch}/{args.train.num_epochs}', disable=args.hide_progress)
         for idx, ((images1, images2, notaug_images), labels) in enumerate(local_progress):
             #data_dict = model.observe(images1, labels, images2, notaug_images)
-            data_dict = model.observe(images1, labels, images2, notaug_images, t) #改变moco,从第2个task，将k参数插值给q参数
+            data_dict = model.observe(images1, labels, images2, notaug_images, t)
             logger.update_scalers(data_dict)
 
         global_progress.set_postfix(data_dict)
