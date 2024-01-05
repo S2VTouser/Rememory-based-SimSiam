@@ -122,15 +122,21 @@ class BmuSimSiam(nn.Module):
 
     def _momentum_update_key_encoder(self, t):
 
-        if t == 0:
+       if t == 0:
             for param_q, param_k in zip(self.encoder.parameters(), self.motum_encoder.parameters()):
                 param_k.data = param_k.data * self.m + param_q.data * (1. - self.m)
+          # for param_q, param_k in zip(self.predictor.parameters(), self.motum_predictor.parameters()):
+          #     param_k.data = param_k.data * self.m + param_q.data * (1. - self.m)
         else:
             for param_q, param_k in zip(self.encoder.parameters(), self.motum_encoder.parameters()):
-                param_q.data = param_q.data * self.m + param_k.data * (1. - self.m)
+                param_q.data = param_q.data * self.mm + param_k.data * (1. - self.mm)
+            #for param_q, param_k in zip(self.predictor.parameters(), self.motum_predictor.parameters()):
+               # param_q.data = param_q.data * self.mm + param_k.data * (1. - self.mm)
 
             for param_q, param_k in zip(self.encoder.parameters(), self.motum_encoder.parameters()):
                 param_k.data = param_k.data * self.m + param_q.data * (1. - self.m)
+            #for param_q, param_k in zip(self.predictor.parameters(), self.motum_predictor.parameters()):
+               # param_k.data = param_k.data * self.m + param_q.data * (1. - self.m)
 
     def forward(self, x1, x2, t):
 
@@ -146,5 +152,5 @@ class BmuSimSiam(nn.Module):
             p3, p4 = motum_h(z3), motum_h(z4)
 
         L = D(p1, z2) / 2 + D(p2, z1) / 2 + D(p1, z3) / 2 + D(p3, z1) / 2 + D(p1, z4) / 2 + D(p4, z1) / 2
-
+        # D(p1, z2) / 2 + D(p2, z1) / 2  + D(p1, z3) / 2 + D(p2, z3) / 2 + D(p1, z4) / 2 + D(p2, z4) / 2
         return {'loss': L}
