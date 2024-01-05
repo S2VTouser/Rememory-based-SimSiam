@@ -129,9 +129,9 @@ class BmuSimSiam(nn.Module):
           #     param_k.data = param_k.data * self.m + param_q.data * (1. - self.m)
         else:
             for param_q, param_k in zip(self.encoder.parameters(), self.motum_encoder.parameters()):
-                param_q.data = param_q.data * self.mm + param_k.data * (1. - self.mm)
+                param_q.data = param_q.data * self.m + param_k.data * (1. - self.m)
             #for param_q, param_k in zip(self.predictor.parameters(), self.motum_predictor.parameters()):
-               # param_q.data = param_q.data * self.mm + param_k.data * (1. - self.mm)
+               # param_q.data = param_q.data * self.m + param_k.data * (1. - self.m)
 
             for param_q, param_k in zip(self.encoder.parameters(), self.motum_encoder.parameters()):
                 param_k.data = param_k.data * self.m + param_q.data * (1. - self.m)
