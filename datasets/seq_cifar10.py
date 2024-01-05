@@ -26,8 +26,8 @@ class SequentialCIFAR10(ContinualDataset):
     N_TASKS = 5
    
     def get_data_loaders(self, args):
-        transform = get_aug(train=True, **args.aug_kwargs) #augmentation 将一张图片分为3个部分；2个aug,1个原图片(没有normalize)
-        test_transform = get_aug(train=False, train_classifier=False, **args.aug_kwargs) #图片不变，只有normalize
+        transform = get_aug(train=True, **args.aug_kwargs) #augmentation
+        test_transform = get_aug(train=False, train_classifier=False, **args.aug_kwargs) 
 
         train_dataset = CIFAR10(base_path() + 'CIFAR10', train=True,
                                   download=True, transform=transform)
@@ -41,8 +41,6 @@ class SequentialCIFAR10(ContinualDataset):
             # print('this')
             test_dataset = CIFAR10(base_path() + 'CIFAR10',train=False,
                                    download=True, transform=test_transform)
-        # print('len train data:',len(train_dataset)) #所有训练集 50000
-        # print('len test data:',len(test_dataset)) #所有测试集 10000
         train, memory, test = store_masked_loaders(train_dataset, test_dataset, memory_dataset, self)
         return train, memory, test
     
